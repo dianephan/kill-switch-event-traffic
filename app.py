@@ -7,19 +7,17 @@ from ldclient.context import Context
 import requests
 from threading import Event
 from halo import Halo
-from flask_socketio import SocketIO, emit
 from character_data import names, character_quotes
 from feed_generator import generate_feed, get_random_avatar
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 
 from dotenv import load_dotenv
 load_dotenv()
 
 sdk_key = os.getenv("LAUNCHDARKLY_SDK_KEY")
 # change the flag key! defaulted to "OFF" after creation
-flag_key = "show-avatars-and-recommendation"
+flag_key = "show-avatars-and-reccs"
 
 @app.route('/')
 def index():
@@ -50,14 +48,6 @@ def show_evaluation_result(key: str, value: bool):
     print()
     print(f"*** The {key} feature flag evaluates to {value}")
 
-class FlagValueChangeListener:
-    def flag_value_change_listener(self, flag_change):
-        # Notify all connected clients about the flag change
-        socketio.emit('flag_update', {
-            'key': flag_change.key,
-            'new_value': flag_change.new_value
-        })
-        show_evaluation_result(flag_change.key, flag_change.new_value)
 
 if __name__ == "__main__":
     if not sdk_key:
