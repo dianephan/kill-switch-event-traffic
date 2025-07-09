@@ -70,11 +70,5 @@ if __name__ == "__main__":
     flag_value = ldclient.get().variation(flag_key, user_context, False)
     show_evaluation_result(flag_key, flag_value)
 
-    if sdk_key is not None:
-        change_listener = FlagValueChangeListener()
-        listener = ldclient.get().flag_tracker \
-            .add_flag_value_change_listener(flag_key, user_context, change_listener.flag_value_change_listener)
-
-    socketio.run(app, debug=True)
-
+    app.run(debug=True)
     
