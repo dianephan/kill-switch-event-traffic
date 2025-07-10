@@ -17,7 +17,7 @@ load_dotenv()
 
 sdk_key = os.getenv("LAUNCHDARKLY_SDK_KEY")
 # change the flag key! defaulted to "OFF" after creation
-flag_key = "show-avatars-and-reccs"
+flag_key = "replace-key-here"
 
 @app.route('/')
 def index():
