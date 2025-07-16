@@ -6,7 +6,6 @@ from ldclient.config import Config
 from ldclient.context import Context
 import requests
 from threading import Event
-from halo import Halo
 from flask_socketio import SocketIO, emit
 from character_data import names, character_quotes
 from feed_generator import generate_feed, get_random_avatar
@@ -19,7 +18,7 @@ load_dotenv()
 
 sdk_key = os.getenv("LAUNCHDARKLY_SDK_KEY")
 # change the flag key! defaulted to "OFF" after creation
-flag_key = "show-avatars-and-recommendation"
+flag_key = "replace-key-here"
 
 @app.route('/')
 def index():
